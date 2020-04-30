@@ -17,7 +17,6 @@ window.onload = function() {
                 initializeLiffOrDie(myLiffId);
             })
             .catch(function(error) {
-                document.getElementById("liffAppContent").classList.add('hidden');
                 document.getElementById("nodeLiffIdErrorMessage").classList.remove('hidden');
             });
     } else {
@@ -103,13 +102,7 @@ function displayIsInClientInfo() {
 * Register event handlers for the buttons displayed in the app
 */
 function registerButtonHandlers() {
-    // openWindow call
-    document.getElementById('openWindowButton').addEventListener('click', function() {
-        liff.openWindow({
-            url: 'https://line.me',
-            external: true
-        });
-    });
+    
 
     // closeWindow call
     document.getElementById('closeWindowButton').addEventListener('click', function() {
@@ -133,91 +126,6 @@ function registerButtonHandlers() {
             }).catch(function(error) {
                 window.alert('Error sending message: ' + error);
             });
-        }
-    });
-
-    // scanCode call
-    document.getElementById('scanQrCodeButton').addEventListener('click', function() {
-        if (!liff.isInClient()) {
-            sendAlertIfNotInClient();
-        } else {
-            liff.scanCode().then(result => {
-                // e.g. result = { value: "Hello LIFF app!" }
-                const stringifiedResult = JSON.stringify(result);
-                document.getElementById('scanQrField').textContent = stringifiedResult;
-                toggleQrCodeReader();
-            }).catch(err => {
-                document.getElementById('scanQrField').textContent = "scanCode failed!";
-            });
-        }
-    });
-
-    // get access token
-    document.getElementById('getAccessToken').addEventListener('click', function() {
-        if (!liff.isLoggedIn() && !liff.isInClient()) {
-            alert('To get an access token, you need to be logged in. Please tap the "login" button below and try again.');
-        } else {
-            const accessToken = liff.getAccessToken();
-            document.getElementById('accessTokenField').textContent = accessToken;
-            toggleAccessToken();
-        }
-    });
-
-    // get profile call
-    document.getElementById('getProfileButton').addEventListener('click', function() {
-        liff.getProfile().then(function(profile) {
-            document.getElementById('userIdProfileField').textContent = profile.userId;
-            document.getElementById('displayNameField').textContent = profile.displayName;
-
-            const profilePictureDiv = document.getElementById('profilePictureDiv');
-            if (profilePictureDiv.firstElementChild) {
-                profilePictureDiv.removeChild(profilePictureDiv.firstElementChild);
-            }
-            const img = document.createElement('img');
-            img.src = profile.pictureUrl;
-            img.alt = 'Profile Picture';
-            profilePictureDiv.appendChild(img);
-
-            document.getElementById('statusMessageField').textContent = profile.statusMessage;
-            toggleProfileData();
-        }).catch(function(error) {
-            window.alert('Error getting profile: ' + error);
-        });
-    });
-    
-    document.getElementById('shareTargetPicker').addEventListener('click', function() {
-        if (!liff.isInClient()) {
-            sendAlertIfNotInClient();
-        } else {
-            if (liff.isApiAvailable('shareTargetPicker')) {
-            liff.shareTargetPicker([
-                {
-                    'type': 'text',
-                    'text': 'Hello, World!'
-                }
-            ])
-                .then(
-                document.getElementById('shareTargetPickerMessage').textContent = "Share target picker was launched."
-                ).catch(function(res) {
-                document.getElementById('shareTargetPickerMessage').textContent = "Failed to launch share target picker."
-                })
-            }
-        }
-        })
-
-    // login call, only when external browser is used
-    document.getElementById('liffLoginButton').addEventListener('click', function() {
-        if (!liff.isLoggedIn()) {
-            // set `redirectUri` to redirect the user to a URL other than the front page of your LIFF app.
-            liff.login();
-        }
-    });
-
-    // logout call only when external browse
-    document.getElementById('liffLogoutButton').addEventListener('click', function() {
-        if (liff.isLoggedIn()) {
-            liff.logout();
-            window.location.reload();
         }
     });
 }
