@@ -7,6 +7,53 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+
+        <div id="liffAppContent">
+            <!-- ACTION BUTTONS -->
+            <div class="buttonGroup">
+                <div class="buttonRow">
+                    <button id="sendMessageButton">Send Message</button>
+                </div>
+                <div class="buttonRow">
+                    <button id="getAccessToken">Get Access Token</button>
+                    <button id="getProfileButton">Get Profile</button>
+                </div>
+            </div>
+            <!-- ACCESS TOKEN DATA -->
+            <div id="accessTokenData" class="hidden textLeft">
+                <h2>Access Token</h2>
+                <a href="#" onclick="toggleAccessToken()">Close Access Token</a>
+                <table>
+                    <tr>
+                        <th>accessToken</th>
+                        <td id="accessTokenField"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- PROFILE INFO -->
+            <div id="profileInfo" class="hidden textLeft">
+                <h2>Profile</h2>
+                <a href="#" onclick="toggleProfileData()">Close Profile</a>
+                <div id="profilePictureDiv">
+                </div>
+                <table>
+                    <tr>
+                        <th>userId</th>
+                        <td id="userIdProfileField"></td>
+                    </tr>
+                    <tr>
+                        <th>displayName</th>
+                        <td id="displayNameField"></td>
+                    </tr>
+                    <tr>
+                        <th>statusMessage</th>
+                        <td id="statusMessageField"></td>
+                    </tr>
+                </table>
+            </div>
+
+
         <div class="form-structor">
             <form class="signup">
                 <h2 class="form-title" id="signup">入力フォーム</h2>
@@ -18,6 +65,7 @@
                 <input type="submit" id="sendMessageButton" class="submit-btn" value="完了">
             </form>
         </div>
+
         <!-- LIFF ID ERROR -->
         <div id="liffIdErrorMessage" class="hidden">
             <p>You have not assigned any value for LIFF ID.</p>
