@@ -78,7 +78,8 @@ function initializeApp() {
 */
 function displayLiffData() {
     document.getElementById('browserLanguage').textContent = liff.getLanguage();
-    document.getElementById('sdkVersion').textContent = liff.getVersion();
+	document.getElementById('sdkVersion').textContent = liff.getVersion();
+	document.getElementById('lineVersion').textContent = liff.getVersion();
     document.getElementById('isInClient').textContent = liff.isInClient();
     document.getElementById('isLoggedIn').textContent = liff.isLoggedIn();
     document.getElementById('deviceOS').textContent = liff.getOS();
@@ -112,7 +113,7 @@ function registerButtonHandlers() {
         }
     });
 
-    // sendMessages call
+    // sendMessages call-----------------------------------------------------------------------------------
     document.getElementById('sendMessageButton').addEventListener('click', function() {
         if (!liff.isInClient()) {
             sendAlertIfNotInClient();
@@ -127,10 +128,9 @@ function registerButtonHandlers() {
             });
         }
     });
-
 }
 
-/**
+/**--------------------------------------------------------------------------------------------------------------
 * Alert the user if LIFF is opened in an external browser and unavailable buttons are tapped
 */
 function sendAlertIfNotInClient() {
